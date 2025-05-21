@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock title %}
+{% block body %}
+  <div class="container mt-5">
+    <form action="/" method="POST">
+      <div class="mb-3">
+        <label for="title" class="form-label">Todo Title</label>
+        <input type="text" class="form-control" id="title" aria-describedby="emailHelp" name="title">
+        <div id="emailHelp" class="form-text"></div>
+      </div>
+      <div class="mb-3">
+        <label for="desc" class="form-label">Description</label>
+        <textarea class="form-control" name="desc" id="desc" rows="3" placeholder="Enter your todo description here"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+  <div class="container mt-5">
+    <h2>Todos</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">SNo</th>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Date & Time</th>
+          <th scope="col">Action</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for todo in allTodo %}
+        <tr>
+          <th scope="row">{{loop.index}}</th>
+          <td>{{todo.title}}</td>
+          <td>{{todo.desc}}</td>
+          <td>{{ todo.date_created.strftime('%Y-%m-%d %H:%M') }}
+          </td>
+          <td>
+            <a href="/update/{{todo.sno}}" type="button" class="btn btn-dark btn-sm mx-1">Update</a>
+            <a href="/delete/{{todo.sno}}" type="button" class="btn btn-dark btn-sm mx-1">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+        
+      </tbody>
+      </table>
+  </div>
+{% endblock body %}
